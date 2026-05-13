@@ -1,21 +1,21 @@
 :root {
   color-scheme: dark;
   font-family:
-    'Avenir Next', 'Trebuchet MS', 'Segoe UI', Candara, 'Noto Sans', sans-serif;
-  --page-bg: #0b0e15;
-  --page-bg-accent: #132033;
-  --shell-bg: rgba(17, 23, 37, 0.86);
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --page-bg: #0a0d16;
+  --page-bg-accent: #121a2b;
+  --shell-bg: rgba(16, 22, 38, 0.82);
   --shell-border: rgba(255, 255, 255, 0.12);
   --shell-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
-  --text-primary: #f4f8fc;
-  --text-secondary: #b6c0d4;
-  --surface: #e9eef6;
-  --surface-hover: #dae3ef;
-  --surface-muted: #8d98ae;
-  --surface-inverse: #101827;
-  --accent: #69d0c5;
-  --accent-strong: #ff9a77;
-  --focus-ring: #a5e6de;
+  --text-primary: #f4f7fb;
+  --text-secondary: #b7c0d6;
+  --surface: #e8edf5;
+  --surface-hover: #dbe4f0;
+  --surface-muted: #8d97ad;
+  --surface-inverse: #0f1729;
+  --accent: #72c6ff;
+  --accent-strong: #ff8ba7;
+  --focus-ring: #a6d8ff;
 }
 
 * {
@@ -23,21 +23,27 @@
 }
 
 html,
-body {
+body,
+app-root {
   min-width: 320px;
   min-height: 100%;
   margin: 0;
+}
+
+app-root {
+  display: block;
+  width: 100%;
 }
 
 body {
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  color: var(--text-primary);
   background:
-    radial-gradient(circle at top left, rgba(105, 208, 197, 0.18), transparent 26%),
-    radial-gradient(circle at 82% 14%, rgba(255, 154, 119, 0.16), transparent 22%),
+    radial-gradient(circle at top left, rgba(114, 198, 255, 0.2), transparent 26%),
+    radial-gradient(circle at 80% 10%, rgba(255, 139, 167, 0.16), transparent 24%),
     linear-gradient(180deg, var(--page-bg) 0%, var(--page-bg-accent) 100%);
+  color: var(--text-primary);
 }
 
 button {
@@ -82,8 +88,8 @@ button {
 
 .calculator-language-active {
   color: var(--text-primary);
-  border-color: rgba(105, 208, 197, 0.4);
-  background: rgba(105, 208, 197, 0.14);
+  border-color: rgba(114, 198, 255, 0.4);
+  background: rgba(114, 198, 255, 0.15);
 }
 
 .calculator-language:hover {
@@ -145,7 +151,7 @@ button {
 
 .calculator-header-result-text--error {
   font-size: clamp(1.05rem, 4vw, 1.4rem);
-  color: #c64d68;
+  color: #c53d61;
   white-space: normal;
 }
 
@@ -182,19 +188,19 @@ button {
 }
 
 .calculator-button:disabled {
-  background: rgba(141, 152, 174, 0.55);
-  color: rgba(16, 24, 39, 0.8);
+  background: rgba(141, 151, 173, 0.55);
+  color: rgba(15, 23, 41, 0.8);
   cursor: not-allowed;
 }
 
 .calculator-button--equal {
-  background: linear-gradient(135deg, var(--accent), #4f90ff);
+  background: linear-gradient(135deg, var(--accent), #4f8dff);
   color: white;
-  box-shadow: 0 12px 30px rgba(79, 144, 255, 0.34);
+  box-shadow: 0 12px 30px rgba(79, 141, 255, 0.34);
 }
 
 .calculator-button--equal:hover:not(:disabled) {
-  background: linear-gradient(135deg, #8be3d8, #6ea2ff);
+  background: linear-gradient(135deg, #8bd5ff, #6b9cff);
 }
 
 noscript {
@@ -204,4 +210,3 @@ noscript {
   background: #111;
   text-align: center;
 }
-
