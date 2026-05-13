@@ -142,6 +142,11 @@ export class CalculatorFacade {
     this.patchState({ error: value });
   }
 
+  private hasBlockedDisplayState(): boolean {
+    const state = this.state();
+    return state.error !== '' || state.isInfinity;
+  }
+
   reset = (): void => {
     const state = this.state();
     this.patchState({
@@ -167,6 +172,10 @@ export class CalculatorFacade {
   };
 
   pressPi = (): void => {
+    if (this.hasBlockedDisplayState()) {
+      return;
+    }
+
     this.setCurrentValue(Math.PI.toFixed(11));
     this.setError('');
     this.setIsInfinity(false);
@@ -184,10 +193,18 @@ export class CalculatorFacade {
   };
 
   pressMemoryClear = (): void => {
+    if (this.hasBlockedDisplayState()) {
+      return;
+    }
+
     this.setCurrentMemoryValue('');
   };
 
   pressMemoryRecall = (): void => {
+    if (this.hasBlockedDisplayState()) {
+      return;
+    }
+
     const state = this.state();
     this.setCurrentValue(state.currentMemoryValue);
     this.setError('');
@@ -195,15 +212,27 @@ export class CalculatorFacade {
   };
 
   pressMemoryStore = (): void => {
+    if (this.hasBlockedDisplayState()) {
+      return;
+    }
+
     this.setCurrentMemoryValue(this.state().currentValue);
   };
 
   pressPercentage = (): void => {
+    if (this.hasBlockedDisplayState()) {
+      return;
+    }
+
     const state = this.state();
     this.setCurrentValue(calculatePercentage(+state.currentValue, state.currentOperator !== ''));
   };
 
   pressBackspace = (): void => {
+    if (this.hasBlockedDisplayState()) {
+      return;
+    }
+
     const state = this.state();
     const trimmedValue = state.currentValue.length === 1 ? '0' : state.currentValue.slice(0, -1);
 
@@ -211,14 +240,26 @@ export class CalculatorFacade {
   };
 
   pressSquare = (): void => {
+    if (this.hasBlockedDisplayState()) {
+      return;
+    }
+
     this.applyFormattedResult(calculateSquare(+this.state().currentValue));
   };
 
   pressCube = (): void => {
+    if (this.hasBlockedDisplayState()) {
+      return;
+    }
+
     this.applyFormattedResult(calculateCube(+this.state().currentValue));
   };
 
   pressSquareRoot = (): void => {
+    if (this.hasBlockedDisplayState()) {
+      return;
+    }
+
     this.setResultOperationOrInvalidInput(
       calculateSquareRoot(+this.state().currentValue),
       'invalid_number_for_square_root'
@@ -226,6 +267,10 @@ export class CalculatorFacade {
   };
 
   pressCubicRoot = (): void => {
+    if (this.hasBlockedDisplayState()) {
+      return;
+    }
+
     this.setResultOperationOrInvalidInput(
       calculateCubicRoot(+this.state().currentValue),
       'invalid_number_for_cubic_root'
@@ -233,6 +278,10 @@ export class CalculatorFacade {
   };
 
   pressFactorial = (): void => {
+    if (this.hasBlockedDisplayState()) {
+      return;
+    }
+
     const result = calculateFactorial(+this.state().currentValue);
 
     if (typeof result === 'string') {
@@ -244,6 +293,10 @@ export class CalculatorFacade {
   };
 
   pressReciprocal = (): void => {
+    if (this.hasBlockedDisplayState()) {
+      return;
+    }
+
     const result = calculateReciprocal(+this.state().currentValue);
 
     if (typeof result === 'string') {
@@ -257,12 +310,20 @@ export class CalculatorFacade {
   };
 
   pressConstantE = (): void => {
+    if (this.hasBlockedDisplayState()) {
+      return;
+    }
+
     this.setCurrentValue(Math.E.toFixed(11));
     this.setError('');
     this.setIsInfinity(false);
   };
 
   pressDigit = (digit: string | number): void => {
+    if (this.hasBlockedDisplayState()) {
+      return;
+    }
+
     const numberValue = digit.toString();
     const state = this.state();
 
@@ -278,6 +339,10 @@ export class CalculatorFacade {
   };
 
   pressZero = (): void => {
+    if (this.hasBlockedDisplayState()) {
+      return;
+    }
+
     const state = this.state();
 
     if (state.alreadyDoneEqualOperation) {
@@ -295,10 +360,18 @@ export class CalculatorFacade {
   };
 
   pressToggleSign = (): void => {
+    if (this.hasBlockedDisplayState()) {
+      return;
+    }
+
     this.setCurrentValue((+this.state().currentValue * -1).toString());
   };
 
   pressDecimal = (): void => {
+    if (this.hasBlockedDisplayState()) {
+      return;
+    }
+
     const state = this.state();
 
     if (state.alreadyDoneEqualOperation) {
@@ -316,6 +389,10 @@ export class CalculatorFacade {
   };
 
   pressEqual = (): void => {
+    if (this.hasBlockedDisplayState()) {
+      return;
+    }
+
     const state = this.state();
     const pendingResult = this.getPendingBinaryOperationResult(state.alreadyDoneEqualOperation);
 
@@ -340,6 +417,10 @@ export class CalculatorFacade {
   };
 
   pressOperator = (operator: Operator): void => {
+    if (this.hasBlockedDisplayState()) {
+      return;
+    }
+
     const state = this.state();
     const hadAlreadyDoneEqualOperation = state.alreadyDoneEqualOperation;
 

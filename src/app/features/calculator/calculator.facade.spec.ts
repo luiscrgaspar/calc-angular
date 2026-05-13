@@ -79,4 +79,24 @@ describe('CalculatorFacade', () => {
     facade.setLanguage('es-ES');
     expect(facade.displayValue()).toBe('No se puede dividir por cero');
   });
+
+  it('blocks calculator actions while an error is displayed until CE clears it', () => {
+    facade.pressOperator('÷');
+    facade.pressDigit('0');
+    facade.pressEqual();
+
+    expect(facade.displayValue()).toBe('Cannot divide by zero');
+
+    facade.pressDigit('7');
+    facade.pressSquare();
+    facade.pressOperator('+');
+    facade.pressMemoryStore();
+    expect(facade.displayValue()).toBe('Cannot divide by zero');
+
+    facade.pressCE();
+    expect(facade.displayValue()).toBe('0');
+
+    facade.pressDigit('7');
+    expect(facade.displayValue()).toBe('7');
+  });
 });
