@@ -35,6 +35,5 @@ export function translate(locale: LanguageCode, key: keyof TranslationMessages |
     return '';
   }
 
-  return MESSAGES[locale][key];
+  return MESSAGES[locale]?.[key] ?? MESSAGES['en-US'][key] ?? '';
 }
-

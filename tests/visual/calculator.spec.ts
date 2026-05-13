@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test';
+import type { Page } from '@playwright/test';
 
-async function clickSequence(page: import('@playwright/test').Page, labels: string[]) {
+async function clickSequence(page: Page, labels: string[]) {
   for (const label of labels) {
     await page.getByRole('button', { name: label }).click();
   }
@@ -74,4 +75,3 @@ test('shows localized errors in Portuguese', async ({ page }) => {
     animations: 'disabled'
   });
 });
-

@@ -195,11 +195,7 @@ export class CalculatorFacade {
   };
 
   pressMemoryStore = (): void => {
-    const state = this.state();
-
-    if (state.currentValue !== '0') {
-      this.setCurrentMemoryValue(state.currentValue);
-    }
+    this.setCurrentMemoryValue(this.state().currentValue);
   };
 
   pressPercentage = (): void => {
@@ -282,7 +278,18 @@ export class CalculatorFacade {
   };
 
   pressZero = (): void => {
-    if (this.state().currentValue !== '0') {
+    const state = this.state();
+
+    if (state.alreadyDoneEqualOperation) {
+      this.setCurrentValue('0');
+      this.setCurrentTemporaryValue('0');
+      this.setCurrentOperator('');
+      this.setGoingToDoOperation(false);
+      this.setAlreadyDoneEqualOperation(false);
+      return;
+    }
+
+    if (state.currentValue !== '0') {
       this.appendToCurrentValue('0');
     }
   };
@@ -293,6 +300,15 @@ export class CalculatorFacade {
 
   pressDecimal = (): void => {
     const state = this.state();
+
+    if (state.alreadyDoneEqualOperation) {
+      this.setCurrentValue('0.');
+      this.setCurrentTemporaryValue('0');
+      this.setCurrentOperator('');
+      this.setGoingToDoOperation(false);
+      this.setAlreadyDoneEqualOperation(false);
+      return;
+    }
 
     if (state.goingToDoOperation || (isNumeric(state.currentValue) && state.currentValue.indexOf('.') === -1)) {
       this.appendToCurrentValue('.');

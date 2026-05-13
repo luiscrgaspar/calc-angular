@@ -98,6 +98,14 @@ button {
   background: rgba(255, 255, 255, 0.08);
 }
 
+.calculator-language:focus-visible {
+  color: var(--text-primary);
+  border-color: rgba(114, 198, 255, 0.65);
+  background: rgba(114, 198, 255, 0.16);
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
 .calculator-shell {
   display: flex;
   flex-direction: column;

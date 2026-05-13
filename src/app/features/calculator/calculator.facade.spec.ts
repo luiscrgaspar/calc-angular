@@ -43,11 +43,19 @@ describe('CalculatorFacade', () => {
   });
 
   it('handles memory and scientific helpers', () => {
+    facade.pressMemoryStore();
+    expect(facade.buttonRows()[1][0].disabled).toBeFalse();
+    expect(facade.buttonRows()[1][1].disabled).toBeFalse();
+
+    facade.pressMemoryRecall();
+    expect(facade.displayValue()).toBe('0');
+
     facade.pressDigit('7');
     facade.pressMemoryStore();
     facade.reset();
 
     expect(facade.buttonRows()[1][0].disabled).toBeFalse();
+    expect(facade.buttonRows()[1][1].disabled).toBeFalse();
 
     facade.pressMemoryRecall();
     expect(facade.displayValue()).toBe('7');

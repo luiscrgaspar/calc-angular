@@ -16,10 +16,10 @@ describe('CalculatorComponent', () => {
 
     const buttons = fixture.debugElement.queryAll(By.css('button'));
     const oneButton = buttons.find((button) => button.nativeElement.textContent.trim() === '1');
-    oneButton?.nativeElement.click();
+    expect(oneButton).toBeDefined();
+    oneButton!.nativeElement.click();
     fixture.detectChanges();
 
     expect(root.querySelector('[data-testid="result"]')?.textContent?.trim()).toBe('1');
   });
 });
-
